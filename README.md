@@ -1,2 +1,2 @@
-# Proyecto_Regresion_No_Lineal
+# Proyecto Regresion No Lineal
 Regresión No Lineal, Regularización y Optimización
