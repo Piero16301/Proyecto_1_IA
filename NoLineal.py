@@ -6,8 +6,7 @@ class NoLineal:
         self.error = error
         self.x = x
         self.y = y
-        self.w_L1 = w.copy()
-        self.w_L2 = w.copy()
+        self.w = w.copy()
         self.alpha = alpha
         self.itera = itera
         self.lamb = lamb
@@ -23,26 +22,24 @@ class NoLineal:
     def execute(self):
         epoch = 1
         while self.itera:
-            self.itera -= 1
+          self.itera -= 1
+          g = 0 
+          if self.norma == "L1":  
+            g = np.array([self.error.gradienteREG_L1(self.model,self.x, self.y, self.w, self.lamb)])
 
-            # [[w1,w2,w3]]
-            g_l1 = np.array([self.error.gradienteREG_L1(self.model, self.x, self.y, self.w_L1, self.lamb)])
-            self.w_L1 = self.w_L1 - self.alpha * g_l1
-
-            # [[w1,w2,w3]]
-            g_l2 = np.array([self.error.gradienteREG_L2(self.model, self.x, self.y, self.w_L2, self.lamb)])
-            self.w_L2 = self.w_L2 - self.alpha * g_l2
-
-            if epoch % 100 == 0:
-                print("epoch:", epoch, "\t", self.norma + "_REG_L1:", round(self.error.errorREG_L1(self.model, self.x,
-                                                                                                   self.y, self.w_L1,
-                                                                                                   self.lamb), 5), "\t",
-                      self.norma + "_REG_L2:", round(self.error.errorREG_L2(
-                        self.model, self.x, self.y, self.w_L1, self.lamb), 5))
-
-            epoch += 1
+            self.w = self.w - self.alpha * g
+            if epoch % 1000 == 0:
+              print("epoch:", epoch, "\t",self.error.name,"norma", self.norma + ":", round(self.error.errorREG_L1(self.model, self.x,self.y, self.w,self.lamb), 5))
+            
+          if self.norma == "L2":  
+            g = np.array([self.error.gradienteREG_L2(self.model, self.x, self.y, self.w, self.lamb)])
+            self.w = self.w - self.alpha * g
+            
+            if epoch % 1000 == 0:
+              print("epoch:", epoch, "\t",self.error.name,"norma", self.norma + ":", round(self.error.errorREG_L2(self.model, self.x,self.y, self.w,self.lamb), 5))
+                     
+          epoch += 1
 
     def calcularY(self):
-        y_l1 = [self.model(self.w_L1, i) for i in self.x[0]]
-        y_l2 = [self.model(self.w_L2, i) for i in self.x[0]]
-        return y_l1, y_l2
+        y = [self.model(self.w, i) for i in self.x[0]]
+        return y
