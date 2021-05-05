@@ -1,4 +1,6 @@
 class MSE:
+    def __init__(self):
+      self.name = "MSE"
     @staticmethod
     def errorREG_L1(model, x, y, w, lamb):
         suma = 0
@@ -25,7 +27,7 @@ class MSE:
             for i in range(len(x[0])):
                 suma += ((y[0][i] - model(w, x[0][i])) * (-(x[0][i]) ** j))
 
-            suma = (suma / len(y[0])) + (1 / len(y[0])) * lamb
+            suma = (suma / len(y[0])) + (1 / len(y[0])) * lamb*(w[0][j]/abs(w[0][j]) )
             w_fin.append(suma)
         return w_fin
 
@@ -38,4 +40,4 @@ class MSE:
                 suma += ((y[0][i] - model(w, x[0][i])) * (-(x[0][i]) ** j))
             suma = (suma / len(y[0])) + (1 / len(y[0])) * lamb * w[0][j]
             w_fin.append(suma)
-        return w_fin
+        return w_fin 
