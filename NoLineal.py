@@ -32,7 +32,6 @@ class NoLineal:
             # [[w1,w2,w3]]
             g_l2 = np.array([self.error.gradienteREG_L2(self.model, self.x, self.y, self.w_L2, self.lamb)])
             self.w_L2 = self.w_L2 - self.alpha * g_l2
-
             if epoch % 1000 == 0:
                 print("epoch:", epoch, "\t", self.norma + "_REG_L1:", round(self.error.errorREG_L1(self.model, self.x,
                                                                                                    self.y, self.w_L1,
