@@ -162,9 +162,7 @@ class NoLineal:
             print("epoch:", epoch, "\t","Adam",self.error.name,"norma", self.norma + ":",err)
           epoch += 1
           
-          epoch += 1
-
-
+          
 
 
     def calcularY(self):
