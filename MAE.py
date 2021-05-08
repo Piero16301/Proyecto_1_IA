@@ -6,16 +6,16 @@ class MAE:
         suma = 0
         for j in range(len(w[0])):
             for i in range(len(x[0])):
-                suma += abs(y[0][i] - model(w, x[0][i]))  / (2 * len(y[0]))
+                suma += abs(y[0][i] - model(w, x[0][i]))  / (len(y[0]))
         w2 = abs(w[0])
-        return suma + (1 / (2 * len(y[0]))) * lamb * sum(w2)
+        return suma + (1 / (len(y[0]))) * lamb * sum(w2)
 
     @staticmethod
     def errorREG_L2(model, x, y, w, lamb):
         suma = 0
         for j in range(len(w[0])):
             for i in range(len(x[0])):
-                suma += abs(y[0][i] - model(w, x[0][i])) / (2 * len(y[0]))
+                suma += abs(y[0][i] - model(w, x[0][i])) / (len(y[0]))
         w2 = w[0] ** 2
         return suma + (1 / (2 * len(y[0]))) * lamb * sum(w2)
 
