@@ -8,7 +8,7 @@ class MSE:
             for i in range(len(x[0])):
                 suma += ((y[0][i] - model(w, x[0][i])) ** 2) / (2 * len(y[0]))
         w2 = abs(w[0])
-        return suma + (1 / (2 * len(y[0]))) * lamb * sum(w2)
+        return suma + (1 / (len(y[0]))) * lamb * sum(w2)
 
     @staticmethod
     def errorREG_L2(model, x, y, w, lamb):
